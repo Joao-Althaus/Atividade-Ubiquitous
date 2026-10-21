@@ -1,0 +1,783 @@
+﻿{
+    "variable":  [
+                     {
+                         "key":  "go_user_id",
+                         "value":  "1"
+                     },
+                     {
+                         "key":  "python_user_id",
+                         "value":  "1"
+                     },
+                     {
+                         "key":  "node_user_id",
+                         "value":  "1"
+                     },
+                     {
+                         "key":  "java_user_id",
+                         "value":  "1"
+                     }
+                 ],
+    "info":  {
+                 "description":  "Coleção com health check e exemplos de CRUD para as quatro APIs. Cada pasta usa uma porta e dados próprios. Execute Criar usuário antes das chamadas que usam user_id; depois de excluir, crie novamente para repetir o fluxo.",
+                 "name":  "Users APIs - CRUD (Go, Python, Node.js e Java)",
+                 "schema":  "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+             },
+    "item":  [
+                 {
+                     "name":  "Go API (http://localhost:8081)",
+                     "item":  [
+                                  {
+                                      "name":  "Health",
+                                      "request":  {
+                                                      "method":  "GET",
+                                                      "url":  {
+                                                                  "port":  "8081",
+                                                                  "host":  [
+                                                                               "localhost"
+                                                                           ],
+                                                                  "raw":  "http://localhost:8081/health",
+                                                                  "path":  [
+                                                                               "health"
+                                                                           ]
+                                                              },
+                                                      "header":  [
+
+                                                                 ]
+                                                  }
+                                  },
+                                  {
+                                      "name":  "Listar usuários",
+                                      "request":  {
+                                                      "method":  "GET",
+                                                      "url":  {
+                                                                  "port":  "8081",
+                                                                  "host":  [
+                                                                               "localhost"
+                                                                           ],
+                                                                  "raw":  "http://localhost:8081/users",
+                                                                  "path":  [
+                                                                               "users"
+                                                                           ]
+                                                              },
+                                                      "header":  [
+
+                                                                 ]
+                                                  }
+                                  },
+                                  {
+                                      "request":  {
+                                                      "url":  {
+                                                                  "port":  "8081",
+                                                                  "host":  [
+                                                                               "localhost"
+                                                                           ],
+                                                                  "raw":  "http://localhost:8081/users",
+                                                                  "path":  [
+                                                                               "users"
+                                                                           ]
+                                                              },
+                                                      "method":  "POST",
+                                                      "body":  {
+                                                                   "raw":  "{\"email\":\"go-ana@example.com\",\"cpf\":\"10000000001\",\"name\":\"Ana Souza\",\"birthday\":\"2000-01-31\"}",
+                                                                   "options":  {
+                                                                                   "raw":  {
+                                                                                               "language":  "json"
+                                                                                           }
+                                                                               },
+                                                                   "mode":  "raw"
+                                                               },
+                                                      "header":  [
+                                                                     {
+                                                                         "key":  "Content-Type",
+                                                                         "value":  "application/json"
+                                                                     }
+                                                                 ]
+                                                  },
+                                      "name":  "Criar usuário",
+                                      "event":  [
+                                                    {
+                                                        "script":  {
+                                                                       "exec":  [
+                                                                                    "if (pm.response.code === 201) {",
+                                                                                    "  const user = pm.response.json();",
+                                                                                    "  pm.collectionVariables.set(\"",
+                                                                                    "go",
+                                                                                    "_user_id\", user.id);",
+                                                                                    "  pm.test(\"Usuário criado e ID salvo\", () =\u003e pm.expect(user.id).to.exist);",
+                                                                                    "}"
+                                                                                ],
+                                                                       "type":  "text/javascript"
+                                                                   },
+                                                        "listen":  "test"
+                                                    }
+                                                ]
+                                  },
+                                  {
+                                      "name":  "Buscar usuário por ID",
+                                      "request":  {
+                                                      "method":  "GET",
+                                                      "url":  {
+                                                                  "port":  "8081",
+                                                                  "host":  [
+                                                                               "localhost"
+                                                                           ],
+                                                                  "raw":  "http://localhost:8081/users/{{go_user_id}}",
+                                                                  "path":  [
+                                                                               "users",
+                                                                               "{{",
+                                                                               "go",
+                                                                               "_user_id}}"
+                                                                           ]
+                                                              },
+                                                      "header":  [
+
+                                                                 ]
+                                                  }
+                                  },
+                                  {
+                                      "name":  "Atualizar usuário",
+                                      "request":  {
+                                                      "url":  {
+                                                                  "port":  "8081",
+                                                                  "host":  [
+                                                                               "localhost"
+                                                                           ],
+                                                                  "raw":  "http://localhost:8081/users/{{go_user_id}}",
+                                                                  "path":  [
+                                                                               "users",
+                                                                               "{{",
+                                                                               "go",
+                                                                               "_user_id}}"
+                                                                           ]
+                                                              },
+                                                      "method":  "PUT",
+                                                      "body":  {
+                                                                   "raw":  "{\"email\":\"go-ana-atualizada@example.com\",\"cpf\":\"20000000001\",\"name\":\"Ana Souza Atualizada\",\"birthday\":\"2000-02-01\"}",
+                                                                   "options":  {
+                                                                                   "raw":  {
+                                                                                               "language":  "json"
+                                                                                           }
+                                                                               },
+                                                                   "mode":  "raw"
+                                                               },
+                                                      "header":  [
+                                                                     {
+                                                                         "key":  "Content-Type",
+                                                                         "value":  "application/json"
+                                                                     }
+                                                                 ]
+                                                  }
+                                  },
+                                  {
+                                      "name":  "Excluir usuário",
+                                      "request":  {
+                                                      "method":  "DELETE",
+                                                      "url":  {
+                                                                  "port":  "8081",
+                                                                  "host":  [
+                                                                               "localhost"
+                                                                           ],
+                                                                  "raw":  "http://localhost:8081/users/{{go_user_id}}",
+                                                                  "path":  [
+                                                                               "users",
+                                                                               "{{",
+                                                                               "go",
+                                                                               "_user_id}}"
+                                                                           ]
+                                                              },
+                                                      "header":  [
+
+                                                                 ]
+                                                  }
+                                  },
+                                  {
+                                      "name":  "Consultar usuário inexistente (404)",
+                                      "request":  {
+                                                      "method":  "GET",
+                                                      "url":  {
+                                                                  "port":  "8081",
+                                                                  "host":  [
+                                                                               "localhost"
+                                                                           ],
+                                                                  "raw":  "http://localhost:8081/users/999999999",
+                                                                  "path":  [
+                                                                               "users",
+                                                                               "999999999"
+                                                                           ]
+                                                              },
+                                                      "header":  [
+
+                                                                 ]
+                                                  }
+                                  }
+                              ]
+                 },
+                 {
+                     "name":  "Python API (http://localhost:8082)",
+                     "item":  [
+                                  {
+                                      "name":  "Health",
+                                      "request":  {
+                                                      "method":  "GET",
+                                                      "url":  {
+                                                                  "port":  "8082",
+                                                                  "host":  [
+                                                                               "localhost"
+                                                                           ],
+                                                                  "raw":  "http://localhost:8082/health",
+                                                                  "path":  [
+                                                                               "health"
+                                                                           ]
+                                                              },
+                                                      "header":  [
+
+                                                                 ]
+                                                  }
+                                  },
+                                  {
+                                      "name":  "Listar usuários",
+                                      "request":  {
+                                                      "method":  "GET",
+                                                      "url":  {
+                                                                  "port":  "8082",
+                                                                  "host":  [
+                                                                               "localhost"
+                                                                           ],
+                                                                  "raw":  "http://localhost:8082/users",
+                                                                  "path":  [
+                                                                               "users"
+                                                                           ]
+                                                              },
+                                                      "header":  [
+
+                                                                 ]
+                                                  }
+                                  },
+                                  {
+                                      "request":  {
+                                                      "url":  {
+                                                                  "port":  "8082",
+                                                                  "host":  [
+                                                                               "localhost"
+                                                                           ],
+                                                                  "raw":  "http://localhost:8082/users",
+                                                                  "path":  [
+                                                                               "users"
+                                                                           ]
+                                                              },
+                                                      "method":  "POST",
+                                                      "body":  {
+                                                                   "raw":  "{\"email\":\"python-ana@example.com\",\"cpf\":\"10000000002\",\"name\":\"Ana Souza\",\"birthday\":\"2000-01-31\"}",
+                                                                   "options":  {
+                                                                                   "raw":  {
+                                                                                               "language":  "json"
+                                                                                           }
+                                                                               },
+                                                                   "mode":  "raw"
+                                                               },
+                                                      "header":  [
+                                                                     {
+                                                                         "key":  "Content-Type",
+                                                                         "value":  "application/json"
+                                                                     }
+                                                                 ]
+                                                  },
+                                      "name":  "Criar usuário",
+                                      "event":  [
+                                                    {
+                                                        "script":  {
+                                                                       "exec":  [
+                                                                                    "if (pm.response.code === 201) {",
+                                                                                    "  const user = pm.response.json();",
+                                                                                    "  pm.collectionVariables.set(\"",
+                                                                                    "python",
+                                                                                    "_user_id\", user.id);",
+                                                                                    "  pm.test(\"Usuário criado e ID salvo\", () =\u003e pm.expect(user.id).to.exist);",
+                                                                                    "}"
+                                                                                ],
+                                                                       "type":  "text/javascript"
+                                                                   },
+                                                        "listen":  "test"
+                                                    }
+                                                ]
+                                  },
+                                  {
+                                      "name":  "Buscar usuário por ID",
+                                      "request":  {
+                                                      "method":  "GET",
+                                                      "url":  {
+                                                                  "port":  "8082",
+                                                                  "host":  [
+                                                                               "localhost"
+                                                                           ],
+                                                                  "raw":  "http://localhost:8082/users/{{python_user_id}}",
+                                                                  "path":  [
+                                                                               "users",
+                                                                               "{{",
+                                                                               "python",
+                                                                               "_user_id}}"
+                                                                           ]
+                                                              },
+                                                      "header":  [
+
+                                                                 ]
+                                                  }
+                                  },
+                                  {
+                                      "name":  "Atualizar usuário",
+                                      "request":  {
+                                                      "url":  {
+                                                                  "port":  "8082",
+                                                                  "host":  [
+                                                                               "localhost"
+                                                                           ],
+                                                                  "raw":  "http://localhost:8082/users/{{python_user_id}}",
+                                                                  "path":  [
+                                                                               "users",
+                                                                               "{{",
+                                                                               "python",
+                                                                               "_user_id}}"
+                                                                           ]
+                                                              },
+                                                      "method":  "PUT",
+                                                      "body":  {
+                                                                   "raw":  "{\"email\":\"python-ana-atualizada@example.com\",\"cpf\":\"20000000002\",\"name\":\"Ana Souza Atualizada\",\"birthday\":\"2000-02-01\"}",
+                                                                   "options":  {
+                                                                                   "raw":  {
+                                                                                               "language":  "json"
+                                                                                           }
+                                                                               },
+                                                                   "mode":  "raw"
+                                                               },
+                                                      "header":  [
+                                                                     {
+                                                                         "key":  "Content-Type",
+                                                                         "value":  "application/json"
+                                                                     }
+                                                                 ]
+                                                  }
+                                  },
+                                  {
+                                      "name":  "Excluir usuário",
+                                      "request":  {
+                                                      "method":  "DELETE",
+                                                      "url":  {
+                                                                  "port":  "8082",
+                                                                  "host":  [
+                                                                               "localhost"
+                                                                           ],
+                                                                  "raw":  "http://localhost:8082/users/{{python_user_id}}",
+                                                                  "path":  [
+                                                                               "users",
+                                                                               "{{",
+                                                                               "python",
+                                                                               "_user_id}}"
+                                                                           ]
+                                                              },
+                                                      "header":  [
+
+                                                                 ]
+                                                  }
+                                  },
+                                  {
+                                      "name":  "Consultar usuário inexistente (404)",
+                                      "request":  {
+                                                      "method":  "GET",
+                                                      "url":  {
+                                                                  "port":  "8082",
+                                                                  "host":  [
+                                                                               "localhost"
+                                                                           ],
+                                                                  "raw":  "http://localhost:8082/users/999999999",
+                                                                  "path":  [
+                                                                               "users",
+                                                                               "999999999"
+                                                                           ]
+                                                              },
+                                                      "header":  [
+
+                                                                 ]
+                                                  }
+                                  }
+                              ]
+                 },
+                 {
+                     "name":  "Node.js API (http://localhost:8083)",
+                     "item":  [
+                                  {
+                                      "name":  "Health",
+                                      "request":  {
+                                                      "method":  "GET",
+                                                      "url":  {
+                                                                  "port":  "8083",
+                                                                  "host":  [
+                                                                               "localhost"
+                                                                           ],
+                                                                  "raw":  "http://localhost:8083/health",
+                                                                  "path":  [
+                                                                               "health"
+                                                                           ]
+                                                              },
+                                                      "header":  [
+
+                                                                 ]
+                                                  }
+                                  },
+                                  {
+                                      "name":  "Listar usuários",
+                                      "request":  {
+                                                      "method":  "GET",
+                                                      "url":  {
+                                                                  "port":  "8083",
+                                                                  "host":  [
+                                                                               "localhost"
+                                                                           ],
+                                                                  "raw":  "http://localhost:8083/users",
+                                                                  "path":  [
+                                                                               "users"
+                                                                           ]
+                                                              },
+                                                      "header":  [
+
+                                                                 ]
+                                                  }
+                                  },
+                                  {
+                                      "request":  {
+                                                      "url":  {
+                                                                  "port":  "8083",
+                                                                  "host":  [
+                                                                               "localhost"
+                                                                           ],
+                                                                  "raw":  "http://localhost:8083/users",
+                                                                  "path":  [
+                                                                               "users"
+                                                                           ]
+                                                              },
+                                                      "method":  "POST",
+                                                      "body":  {
+                                                                   "raw":  "{\"email\":\"node-ana@example.com\",\"cpf\":\"10000000003\",\"name\":\"Ana Souza\",\"birthday\":\"2000-01-31\"}",
+                                                                   "options":  {
+                                                                                   "raw":  {
+                                                                                               "language":  "json"
+                                                                                           }
+                                                                               },
+                                                                   "mode":  "raw"
+                                                               },
+                                                      "header":  [
+                                                                     {
+                                                                         "key":  "Content-Type",
+                                                                         "value":  "application/json"
+                                                                     }
+                                                                 ]
+                                                  },
+                                      "name":  "Criar usuário",
+                                      "event":  [
+                                                    {
+                                                        "script":  {
+                                                                       "exec":  [
+                                                                                    "if (pm.response.code === 201) {",
+                                                                                    "  const user = pm.response.json();",
+                                                                                    "  pm.collectionVariables.set(\"",
+                                                                                    "node",
+                                                                                    "_user_id\", user.id);",
+                                                                                    "  pm.test(\"Usuário criado e ID salvo\", () =\u003e pm.expect(user.id).to.exist);",
+                                                                                    "}"
+                                                                                ],
+                                                                       "type":  "text/javascript"
+                                                                   },
+                                                        "listen":  "test"
+                                                    }
+                                                ]
+                                  },
+                                  {
+                                      "name":  "Buscar usuário por ID",
+                                      "request":  {
+                                                      "method":  "GET",
+                                                      "url":  {
+                                                                  "port":  "8083",
+                                                                  "host":  [
+                                                                               "localhost"
+                                                                           ],
+                                                                  "raw":  "http://localhost:8083/users/{{node_user_id}}",
+                                                                  "path":  [
+                                                                               "users",
+                                                                               "{{",
+                                                                               "node",
+                                                                               "_user_id}}"
+                                                                           ]
+                                                              },
+                                                      "header":  [
+
+                                                                 ]
+                                                  }
+                                  },
+                                  {
+                                      "name":  "Atualizar usuário",
+                                      "request":  {
+                                                      "url":  {
+                                                                  "port":  "8083",
+                                                                  "host":  [
+                                                                               "localhost"
+                                                                           ],
+                                                                  "raw":  "http://localhost:8083/users/{{node_user_id}}",
+                                                                  "path":  [
+                                                                               "users",
+                                                                               "{{",
+                                                                               "node",
+                                                                               "_user_id}}"
+                                                                           ]
+                                                              },
+                                                      "method":  "PUT",
+                                                      "body":  {
+                                                                   "raw":  "{\"email\":\"node-ana-atualizada@example.com\",\"cpf\":\"20000000003\",\"name\":\"Ana Souza Atualizada\",\"birthday\":\"2000-02-01\"}",
+                                                                   "options":  {
+                                                                                   "raw":  {
+                                                                                               "language":  "json"
+                                                                                           }
+                                                                               },
+                                                                   "mode":  "raw"
+                                                               },
+                                                      "header":  [
+                                                                     {
+                                                                         "key":  "Content-Type",
+                                                                         "value":  "application/json"
+                                                                     }
+                                                                 ]
+                                                  }
+                                  },
+                                  {
+                                      "name":  "Excluir usuário",
+                                      "request":  {
+                                                      "method":  "DELETE",
+                                                      "url":  {
+                                                                  "port":  "8083",
+                                                                  "host":  [
+                                                                               "localhost"
+                                                                           ],
+                                                                  "raw":  "http://localhost:8083/users/{{node_user_id}}",
+                                                                  "path":  [
+                                                                               "users",
+                                                                               "{{",
+                                                                               "node",
+                                                                               "_user_id}}"
+                                                                           ]
+                                                              },
+                                                      "header":  [
+
+                                                                 ]
+                                                  }
+                                  },
+                                  {
+                                      "name":  "Consultar usuário inexistente (404)",
+                                      "request":  {
+                                                      "method":  "GET",
+                                                      "url":  {
+                                                                  "port":  "8083",
+                                                                  "host":  [
+                                                                               "localhost"
+                                                                           ],
+                                                                  "raw":  "http://localhost:8083/users/999999999",
+                                                                  "path":  [
+                                                                               "users",
+                                                                               "999999999"
+                                                                           ]
+                                                              },
+                                                      "header":  [
+
+                                                                 ]
+                                                  }
+                                  }
+                              ]
+                 },
+                 {
+                     "name":  "Java API (http://localhost:8084)",
+                     "item":  [
+                                  {
+                                      "name":  "Health",
+                                      "request":  {
+                                                      "method":  "GET",
+                                                      "url":  {
+                                                                  "port":  "8084",
+                                                                  "host":  [
+                                                                               "localhost"
+                                                                           ],
+                                                                  "raw":  "http://localhost:8084/health",
+                                                                  "path":  [
+                                                                               "health"
+                                                                           ]
+                                                              },
+                                                      "header":  [
+
+                                                                 ]
+                                                  }
+                                  },
+                                  {
+                                      "name":  "Listar usuários",
+                                      "request":  {
+                                                      "method":  "GET",
+                                                      "url":  {
+                                                                  "port":  "8084",
+                                                                  "host":  [
+                                                                               "localhost"
+                                                                           ],
+                                                                  "raw":  "http://localhost:8084/users",
+                                                                  "path":  [
+                                                                               "users"
+                                                                           ]
+                                                              },
+                                                      "header":  [
+
+                                                                 ]
+                                                  }
+                                  },
+                                  {
+                                      "request":  {
+                                                      "url":  {
+                                                                  "port":  "8084",
+                                                                  "host":  [
+                                                                               "localhost"
+                                                                           ],
+                                                                  "raw":  "http://localhost:8084/users",
+                                                                  "path":  [
+                                                                               "users"
+                                                                           ]
+                                                              },
+                                                      "method":  "POST",
+                                                      "body":  {
+                                                                   "raw":  "{\"email\":\"java-ana@example.com\",\"cpf\":\"10000000004\",\"name\":\"Ana Souza\",\"birthday\":\"2000-01-31\"}",
+                                                                   "options":  {
+                                                                                   "raw":  {
+                                                                                               "language":  "json"
+                                                                                           }
+                                                                               },
+                                                                   "mode":  "raw"
+                                                               },
+                                                      "header":  [
+                                                                     {
+                                                                         "key":  "Content-Type",
+                                                                         "value":  "application/json"
+                                                                     }
+                                                                 ]
+                                                  },
+                                      "name":  "Criar usuário",
+                                      "event":  [
+                                                    {
+                                                        "script":  {
+                                                                       "exec":  [
+                                                                                    "if (pm.response.code === 201) {",
+                                                                                    "  const user = pm.response.json();",
+                                                                                    "  pm.collectionVariables.set(\"",
+                                                                                    "java",
+                                                                                    "_user_id\", user.id);",
+                                                                                    "  pm.test(\"Usuário criado e ID salvo\", () =\u003e pm.expect(user.id).to.exist);",
+                                                                                    "}"
+                                                                                ],
+                                                                       "type":  "text/javascript"
+                                                                   },
+                                                        "listen":  "test"
+                                                    }
+                                                ]
+                                  },
+                                  {
+                                      "name":  "Buscar usuário por ID",
+                                      "request":  {
+                                                      "method":  "GET",
+                                                      "url":  {
+                                                                  "port":  "8084",
+                                                                  "host":  [
+                                                                               "localhost"
+                                                                           ],
+                                                                  "raw":  "http://localhost:8084/users/{{java_user_id}}",
+                                                                  "path":  [
+                                                                               "users",
+                                                                               "{{",
+                                                                               "java",
+                                                                               "_user_id}}"
+                                                                           ]
+                                                              },
+                                                      "header":  [
+
+                                                                 ]
+                                                  }
+                                  },
+                                  {
+                                      "name":  "Atualizar usuário",
+                                      "request":  {
+                                                      "url":  {
+                                                                  "port":  "8084",
+                                                                  "host":  [
+                                                                               "localhost"
+                                                                           ],
+                                                                  "raw":  "http://localhost:8084/users/{{java_user_id}}",
+                                                                  "path":  [
+                                                                               "users",
+                                                                               "{{",
+                                                                               "java",
+                                                                               "_user_id}}"
+                                                                           ]
+                                                              },
+                                                      "method":  "PUT",
+                                                      "body":  {
+                                                                   "raw":  "{\"email\":\"java-ana-atualizada@example.com\",\"cpf\":\"20000000004\",\"name\":\"Ana Souza Atualizada\",\"birthday\":\"2000-02-01\"}",
+                                                                   "options":  {
+                                                                                   "raw":  {
+                                                                                               "language":  "json"
+                                                                                           }
+                                                                               },
+                                                                   "mode":  "raw"
+                                                               },
+                                                      "header":  [
+                                                                     {
+                                                                         "key":  "Content-Type",
+                                                                         "value":  "application/json"
+                                                                     }
+                                                                 ]
+                                                  }
+                                  },
+                                  {
+                                      "name":  "Excluir usuário",
+                                      "request":  {
+                                                      "method":  "DELETE",
+                                                      "url":  {
+                                                                  "port":  "8084",
+                                                                  "host":  [
+                                                                               "localhost"
+                                                                           ],
+                                                                  "raw":  "http://localhost:8084/users/{{java_user_id}}",
+                                                                  "path":  [
+                                                                               "users",
+                                                                               "{{",
+                                                                               "java",
+                                                                               "_user_id}}"
+                                                                           ]
+                                                              },
+                                                      "header":  [
+
+                                                                 ]
+                                                  }
+                                  },
+                                  {
+                                      "name":  "Consultar usuário inexistente (404)",
+                                      "request":  {
+                                                      "method":  "GET",
+                                                      "url":  {
+                                                                  "port":  "8084",
+                                                                  "host":  [
+                                                                               "localhost"
+                                                                           ],
+                                                                  "raw":  "http://localhost:8084/users/999999999",
+                                                                  "path":  [
+                                                                               "users",
+                                                                               "999999999"
+                                                                           ]
+                                                              },
+                                                      "header":  [
+
+                                                                 ]
+                                                  }
+                                  }
+                              ]
+                 }
+             ]
+}

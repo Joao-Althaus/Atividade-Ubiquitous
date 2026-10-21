@@ -1,4 +1,4 @@
-﻿package edu.users.controller;
+package edu.users.controller;
 
 import edu.users.model.User;
 import edu.users.model.UserInput;

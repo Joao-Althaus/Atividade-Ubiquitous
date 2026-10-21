@@ -1,4 +1,4 @@
-﻿package edu.users.service;
+package edu.users.service;
 
 import edu.users.model.User;
 import edu.users.model.UserInput;

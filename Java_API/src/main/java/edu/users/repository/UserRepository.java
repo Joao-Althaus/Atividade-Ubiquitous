@@ -1,4 +1,4 @@
-﻿package edu.users.repository;
+package edu.users.repository;
 
 import edu.users.model.User;
 import edu.users.model.UserInput;

@@ -1,4 +1,4 @@
-﻿package edu.users.model;
+package edu.users.model;
 
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
